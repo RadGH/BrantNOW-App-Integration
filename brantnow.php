@@ -3,7 +3,7 @@
  * Plugin Name: BrantNOW App Integration
  * Plugin URI: http://radleysustaire.com/
  * Description: Adds a section for Real Estate/Open House, Garage Sales and Events - to be integrated into the BrantNOW mobile app.
- * Version: 1.0.0
+ * Version: 1.0.3
  * Author: Radley Sustaire
  * Author URI: http://radleysustaire.com/
  * License: Copyright (c) 2017 Jamie Stephens, Owner of BrantNOW
@@ -22,7 +22,7 @@ if ( !class_exists( 'BrantNOW' ) ) {
 	class BrantNOW
 	{
 		// Plugin settings
-		public $version = '1.0.0';
+		public $version = '1.0.3';
 		public $plugin_dir = null;
 		public $plugin_url = null;
 		public $plugin_basename = null;
@@ -48,12 +48,27 @@ if ( !class_exists( 'BrantNOW' ) ) {
 				return;
 			}
 			
-			include( $this->plugin_dir . '/includes/open-house.php' );
-			include( $this->plugin_dir . '/includes/general.php' );
+			include( 'includes/general.php' );
+			include( 'includes/open-house.php' );
+			include( 'includes/estate-agencies.php' );
+			include( 'includes/garage-sales-and-events.php' );
+			include( 'includes/users.php' );
+			include( 'includes/memberpress.php' );
 			
+			include( 'shortcodes/bn_manage_open_houses.php' );
+			include( 'shortcodes/bn_add_garage_sale.php' );
+			include( 'shortcodes/bn_add_event.php' );
+			
+			/*
 			if ( !class_exists('GeoQueryContext') ) {
-				include( $this->plugin_dir . '/assets/geo-query/geo-query.php' );
+				if ( file_exists('/assets/geo-query/geo-query.php') ) {
+					include( '/assets/geo-query/geo-query.php' );
+				}else{
+					wp_die('Error: WordPress Geo Query is required - https://github.com/birgire/geo-query');
+					exit;
+				}
 			}
+			*/
 		}
 	}
 }
@@ -66,6 +81,13 @@ function bn_acf_not_running() {
 	</div>
 	<?php
 }
+
+function bn_activate_plugin() {
+	include_once( 'includes/users.php' );
+	bn_add_user_roles_and_capabilities();
+}
+register_activation_hook( __FILE__, 'bn_activate_plugin' );
+
 
 // Create our plugin object, accessible via a global variable.
 global $BrantNOW;

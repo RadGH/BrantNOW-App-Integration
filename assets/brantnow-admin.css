@@ -1,0 +1,34 @@
+.bn-user-table {
+	border-collapse: collapse;
+}
+
+.bn-user-table tr > * {
+	padding: 4px 5px 4px 5px;
+	text-align: left;
+}
+
+.bn-user-table tbody > tr:nth-child(even) {
+	background: rgba(0,0,0,0.03);
+}
+
+.bn-user-table tbody > tr:nth-child(odd) {
+	background: rgba(0,0,0,0.01);
+}
+
+.bn-user-table tbody > tr:nth-child(1n):hover {
+	background: rgba(0, 115, 170, 0.15);
+}
+
+.acf-field-59c1fa27f0384 .acf-label label {
+	font-weight: 600;
+}
+
+.acf-field-59c1fa27f0384 span.select2 {
+	max-width: 350px;
+}
+
+/* Hide user profile "Website" and "Biography" fields */
+tr.user-description-wrap,
+tr.user-url-wrap {
+	display: none;
+}

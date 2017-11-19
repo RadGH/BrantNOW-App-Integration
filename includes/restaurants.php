@@ -41,7 +41,7 @@ function bn_register_restaurants_post_type() {
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
-		'menu_icon'             => 'dashicons-calendar-alt',
+		'menu_icon'             => 'dashicons-store',
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => false,
 		'can_export'            => true,
@@ -54,7 +54,6 @@ function bn_register_restaurants_post_type() {
 	register_post_type( 'restaurant', $args );
 }
 add_action( 'init', 'bn_register_restaurants_post_type' );
-
 
 /**
  * When saving an item, assign the first photo from the gallery to be the featured image for the item.
@@ -95,8 +94,9 @@ function bn_add_restaurant_data_to_content( $content ) {
 		'full_address'     => bn_get_location_address( $post_id ), // Used for map
 		'latlng'           => bn_get_location_latlng( $post_id ), // Used for map
 		'description'      => get_field( 'description', $post_id ),
+		'phone'            => get_field( 'phone', $post_id ),
 		'website'          => get_field( 'website', $post_id ),
-		'tickets_url'      => get_field( 'tickets_url', $post_id ),
+		'menu_url'         => get_field( 'menu_url', $post_id ),
 		'featured_image'   => get_field( 'featured_image', $post_id, false ),
 		'photo_gallery'    => get_field( 'photo_gallery', $post_id ),
 	);
@@ -136,9 +136,10 @@ function bn_add_restaurant_data_to_content( $content ) {
 	
 	<?php
 	// --------------
-	// Website and Ticket URL
+	// Phone, Website and Menu URL
+	if ( $fields['phone'] ) echo '<p><strong>Phone:</strong> '. esc_html($fields['phone']) .'</p>';
 	if ( $fields['website'] ) echo '<p><strong>Website:</strong> <a href="'.esc_attr($fields['website']).'" target="_blank">Visit Website &raquo;</a></p>';
-	if ( $fields['tickets_url'] ) echo '<p><strong>Tickets:</strong> <a href="'.esc_attr($fields['tickets_url']).'" target="_blank">Buy Tickets &raquo;</a></p>';
+	if ( $fields['menu_url'] ) echo '<p><strong>Menu:</strong> <a href="'.esc_attr($fields['menu_url']).'" target="_blank">View Menu &raquo;</a></p>';
 	?>
 	
 	<?php

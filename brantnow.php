@@ -59,6 +59,7 @@ if ( !class_exists( 'BrantNOW' ) ) {
 			include( 'shortcodes/bn_manage_open_houses.php' );
 			include( 'shortcodes/bn_add_garage_sale.php' );
 			include( 'shortcodes/bn_add_event.php' );
+			include( 'shortcodes/bn_add_restaurant.php' );
 			
 			/*
 			if ( !class_exists('GeoQueryContext') ) {

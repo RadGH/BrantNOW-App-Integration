@@ -360,3 +360,22 @@ function bn_get_location_latlng( $post_id, $meta_key = 'location' ) {
 	else
 		return false;
 }
+
+
+
+function bn_allow_guest_uploads( $capabilities, $cap, $args ) {
+	if ( array_search( 'upload_files', $cap ) === false ) return $capabilities;
+	
+	if ( !isset($capabilities['upload_files']) ) {
+		// we have to give a plethora of permissions temporarily.
+		$capabilities['edit_pages'] = true;
+		$capabilities['edit_others_pages'] = true;
+		$capabilities['edit_posts'] = true;
+		$capabilities['edit_others_posts'] = true;
+		$capabilities['edit_published_pages'] = true;
+		$capabilities['edit_published_posts'] = true;
+		$capabilities['upload_files'] = true;
+	}
+	
+	return $capabilities;
+}

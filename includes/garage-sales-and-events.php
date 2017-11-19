@@ -554,20 +554,3 @@ function bn_allow_guest_uploads_on_event_and_garage_sale_pages() {
 	add_filter( 'user_has_cap', 'bn_allow_guest_uploads', 50, 3 );
 }
 add_action( 'wp', 'bn_allow_guest_uploads_on_event_and_garage_sale_pages' );
-
-function bn_allow_guest_uploads( $capabilities, $cap, $args ) {
-	if ( array_search( 'upload_files', $cap ) === false ) return $capabilities;
-	
-	if ( !isset($capabilities['upload_files']) ) {
-		// we have to give a plethora of permissions temporarily.
-		$capabilities['edit_pages'] = true;
-		$capabilities['edit_others_pages'] = true;
-		$capabilities['edit_posts'] = true;
-		$capabilities['edit_others_posts'] = true;
-		$capabilities['edit_published_pages'] = true;
-		$capabilities['edit_published_posts'] = true;
-		$capabilities['upload_files'] = true;
-	}
-	
-	return $capabilities;
-}

@@ -52,6 +52,7 @@ if ( !class_exists( 'BrantNOW' ) ) {
 			include( 'includes/open-house.php' );
 			include( 'includes/estate-agencies.php' );
 			include( 'includes/garage-sales-and-events.php' );
+			include( 'includes/restaurants.php' );
 			include( 'includes/users.php' );
 			include( 'includes/memberpress.php' );
 			

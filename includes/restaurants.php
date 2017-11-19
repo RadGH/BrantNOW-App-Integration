@@ -195,3 +195,20 @@ function bn_allow_guest_uploads_on_restaurant_sale_pages() {
 	add_filter( 'user_has_cap', 'bn_allow_guest_uploads', 50, 3 );
 }
 add_action( 'wp', 'bn_allow_guest_uploads_on_restaurant_sale_pages' );
+
+// Allow uploading a menu PDF, save link as menu url, for the backend only
+function bn_upload_pdf_to_menu_url( $post_id ) {
+	if ( get_post_type($post_id) != 'restaurant' ) return;
+	
+	$menu_pdf = get_field( 'menu_pdf', $post_id, false );
+	$menu_url = get_field( 'menu_url', $post_id, false );
+	
+	// Add menu url using pdf
+	if ( $menu_pdf && !$menu_url ) {
+		$attachment_url = wp_get_attachment_url( $menu_pdf );
+		if ( $attachment_url ) {
+			update_field( 'menu_url', $attachment_url, $post_id );
+		}
+	}
+}
+add_action( 'acf/save_post', 'bn_upload_pdf_to_menu_url', 30 );
